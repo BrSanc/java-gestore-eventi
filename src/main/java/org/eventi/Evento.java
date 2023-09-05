@@ -8,10 +8,10 @@ public class Evento {
     private int postiTotali;
     private int postiPrenotati;
 
-    public Evento(String titolo, LocalDate data, int postiTotali, int postiPrenotati) {
+    public Evento(String titolo, String data, int postiTotali) {
         this.titolo = titolo;
+        this.data = LocalDate.parse(data);
         isValidDate();
-        this.data = data;
         if (postiTotali <= 0){
             throw new RuntimeException("il numero di posti deve essere positivo e sopra dello 0");
         }
@@ -52,22 +52,22 @@ public class Evento {
     //Metodi---------------------------------
 
     public void prenota(int numeriPosti) {
-        noPosti();
+        noMorePosti(numeriPosti);
         isValidDate();
         postiPrenotati += numeriPosti;
     }
 
     public void disdici(int numeriPosti){
-        noPosti();
         isValidDate();
+        noMoreDisdirePosti(numeriPosti);
         postiPrenotati -= numeriPosti;
     }
 
     @Override
     public String toString() {
         return "Evento{" +
-                "titolo='" + titolo + '\'' +
-                ", data=" + data +
+                "titolo= " + titolo + " | "  +
+                "data= " + data +
                 '}';
     }
 
@@ -78,9 +78,17 @@ public class Evento {
         }
     }
 
-    private void noPosti(){
-        if (postiPrenotati > postiTotali){
+    private void noMorePosti(int numeriPosti){
+        int limitposti = numeriPosti + postiPrenotati;
+        if (limitposti > postiTotali){
             throw new RuntimeException("Non ci sono suficienti posti disponibili");
+        }
+    }
+
+    private void noMoreDisdirePosti(int numeriPosti){
+        int limitposti = postiPrenotati - numeriPosti;
+        if (limitposti < 0){
+            throw new RuntimeException("Non ci sono piu posti da disdire");
         }
     }
 }
