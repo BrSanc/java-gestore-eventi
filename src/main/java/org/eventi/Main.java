@@ -46,6 +46,7 @@ public class Main {
                     break;
                 case "3":
                     exit = true;
+                    System.out.println("Uscendo dal programma!");
                     break;
                 default:
                     System.out.println("Scelta invalida");
@@ -54,10 +55,10 @@ public class Main {
         }
 
 
-
+        System.out.println();
         System.out.println(evento.toString());
-        System.out.println(evento.getPostiTotali());
-        System.out.println(evento.getPostiPrenotati());
+        System.out.println("Posti Totali: "+evento.getPostiTotali());
+        System.out.println("Posti Prenotati: " +evento.getPostiPrenotati());
 
 
 
